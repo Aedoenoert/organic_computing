@@ -5,7 +5,7 @@ from agents import AntAgent, ParticleAgent
 
 
 class AntModel(mesa.Model):
-    def __init__(self, num_ants, grid_size: tuple[int, int], ant_step_size, ant_jump_size, init_center, p_particle):
+    def __init__(self, num_ants, grid_size, ant_step_size, ant_jump_size, init_center, p_particle):
         super().__init__()
         self.step_size = ant_step_size
         self.jump_size = ant_jump_size

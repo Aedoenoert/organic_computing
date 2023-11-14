@@ -47,7 +47,6 @@ class AntAgent(mesa.Agent):
         empty_spot = None
         radius = 1
         while empty_spot is None:
-            print('DEBUG: Checking empty spot for radius: ', radius)
             pos_iter = self.model.grid.iter_neighborhood(pos=self.pos, moore=True, include_center=False, radius=radius)
             empty_spots = list(filter(lambda position: self.model.grid.is_cell_empty(position), pos_iter))
             if empty_spots:

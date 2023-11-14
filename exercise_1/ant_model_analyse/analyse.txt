@@ -1,0 +1,35 @@
+Analyse zum Clustering:
+    1. Eine mögliche Abbruchbedingung ist die Stabilität der bzw. des Clusters. Mit Standardeinstellung zu Ameisenanzahl,
+       Partikeldichte, etc. werden ca. 1200 - 1300 Zeitschritte benötigt. Eine weitere Möglichkeit ist der Abbruch nach
+       einer festgelegten Anzahl an Schritten um ein unendliches Clustering zu verhindern.
+
+    2. Wenn mit den gleichen Parametern die zentrale Initialisierung gewählt wird, werden für ein vergleichbares Ergebnis
+       mehr Zeitschritte benötigt (1500 - 1600). Am Ende werden die Partikel ebenfalls an der linken Seite des Clusters
+       konzentriert doch zuerst werden alle Partikel von der Mitte nach außen getragen und später von allen Seiten
+       wieder durch die Mitte an den linken Rand.
+
+    3. Bei niedriger Partikeldichte (10 %) ist deutlicher zu erkennen, dass in die untere linke Ecke des Grids geclustert wird.
+       Außerdem sind mehr beladene Ameisen unterwegs, die sich schwertun einen Platz zum Ablegen ihres Partikels zu finden.
+       Das Clustering dauert länger, ca 1800 - 1900 Zeitschritte, aber das Cluster ist deutlich zu erkennen.
+
+       Der Standardwert für die Partikeldichte liegt bei 40 % was einer mittleren Dicht entspricht. Somit siehe 1.
+
+       Bei einer hohen Dichte (90 %) ist das Clustering verhältnismäßig schnell fertig (ca 600 Zeitschritte) es ist aber
+       nur eine Tendenz zu erkennen, da kaum Platz existiert, um die Partikel zu verschieben.
+
+    4. Standardwerte sind: step_size = 1 und jump_size = 1
+       Bei einer erhöhten Schrittweite (step_size = 10) ist früher (schon nach ca 300 Zeitschritten) eine Tendenz zu
+       erkennen aber es dauert länger auch einzelne Partikel auch noch dem 'großen' Cluster hinzuzufügen. Alles in allem
+       kann das Verfahren mit einer hohen step_size schneller sein als mit den Standardwerten (1000 Zeitschritte)
+
+       Bei einer hohen Sprungweite (jump_size = 10) und einer geringen Schrittweite (step_size = 1) zeigt sich langsamer
+       eine Tendenz des Clusters (erst nach ca 500 Schritten). Es dauert lange vereinzelte Partikel und kleine Häufungen
+       zum Cluster hinzuzufügen und 'Löcher' innerhalb des Clusters zu füllen. (1800 bis 1900 Zeitschritte)
+
+       Bei einer hohen Sprung- und Schrittweite (jump_size = step_size = 10) hatte ich ein deutlich schlechteres Ergebnis
+       erwartet, aber man konnte recht bald eine Tendenz erkenn (ca 400 Schritte) aber das Endergebnis ist weniger
+       eindeutig als bei anderen Durchläufen, denn es würden sich 2 verschiedene Cluster-Schwerpunkte identifizieren lassen.
+
+    5. Mindestens 1 Ameise ist nötig, da alle Bewegungen randomisiert sind, dauert es nur extrem lange.
+
+
