@@ -30,6 +30,7 @@ def simple_clustering(grid, model_params):
 
 def advanced_clustering(grid, model_params):
     model_params["alpha"] = Slider('scale factor for distance measuring', value=0.5, min_value=0, max_value=1, step=0.1)
+    model_params["nhr"] = Slider('LF-Similarity radius', value=1, min_value=1, max_value=grid.grid_width//2, step=1)
     server = ModularServer(AdvancedModel, [grid], "AdvancedAntModel", model_params=model_params)
     server.launch()
 
