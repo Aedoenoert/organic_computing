@@ -113,7 +113,8 @@ class AdvancedAntAgent(AntAgent):
         for ant in ants:
             if neighboring_cells.count(ant.pos):
                 neighboring_cells.remove(ant.pos)
-        self.model.grid.move_agent(self, random.choice(neighboring_cells))
+        if neighboring_cells:
+            self.model.grid.move_agent(self, random.choice(neighboring_cells))
 
 
 class StoneParticle(ParticleAgent):
