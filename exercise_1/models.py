@@ -9,7 +9,7 @@ class SimpleModel(mesa.Model):
     Class for simulating simple ant clustering
     """
 
-    def __init__(self, num_ants, grid_size, ant_step_size, ant_jump_size, init_center, p_particle):
+    def __init__(self, num_ants, grid_size, ant_step_size, ant_jump_size, init_center, p_particle) -> None:
         """
         Creates a new simple ant clustering model
         :param num_ants: number ant agents
@@ -45,10 +45,6 @@ class SimpleModel(mesa.Model):
         self.schedule.step()
 
 
-def calc_euclidean_distance(particle_1, particle_2):
-    return math.sqrt((particle_1.shape - particle_2.shape) ** 2 + (particle_1.weight - particle_2.weight) ** 2)
-
-
 class AdvancedModel(mesa.Model):
     """
     Class for simulating advanced ant clustering
@@ -56,7 +52,7 @@ class AdvancedModel(mesa.Model):
 
     def __init__(self, num_ants, grid_size, init_center, p_particle, ant_jump_size, k_p=0.1, k_m=0.3,
                  alpha=0.5,
-                 nhr=1):
+                 nhr=1) -> None:
         """
         Create an advanced ant clustering model.
         :param num_ants: number of ant agents
@@ -96,13 +92,19 @@ class AdvancedModel(mesa.Model):
                 particle_agent = create_particle_agent(agent_id=index, agent_type=random.choice([1, 2, 3]), model=self)
                 self.grid.place_agent(particle_agent, (x, y))
 
-    def p_pick(self, particle):
+    def p_pick(self, particle) -> float:
         return (self.k_plus / (self.k_plus + self.lf_neighborhood_sim(particle, particle.pos))) ** 2
 
-    def p_drop(self, particle, pos):
+    def p_drop(self, particle, pos) -> float:
         return (self.lf_neighborhood_sim(particle, pos) / (self.k_minus + self.lf_neighborhood_sim(particle, pos))) ** 2
 
-    def lf_neighborhood_sim(self, particle, position):
+    def lf_neighborhood_sim(self, particle, position) -> float:
+        """
+        This function calculates the LF-Neighborhood function for a particle
+        :param particle: the particle which the similarity should be calculated for
+        :param position: the particles  position on the grid
+        :return: float value
+        """
         neighbors = self.grid.get_neighbors(pos=position, moore=True, include_center=True, radius=self.radius)
         neighbors = filter(lambda agent: not isinstance(agent, AdvancedAntAgent), neighbors)
         similarity = 0
@@ -113,3 +115,7 @@ class AdvancedModel(mesa.Model):
 
     def step(self):
         self.schedule.step()
+
+
+def calc_euclidean_distance(particle_1, particle_2) -> float:
+    return math.sqrt((particle_1.shape - particle_2.shape) ** 2 + (particle_1.weight - particle_2.weight) ** 2)

@@ -3,6 +3,9 @@ import mesa
 
 
 class AntAgent(mesa.Agent):
+    """
+    This is the basic AntAgent class where all other ant agents are inherited from
+    """
     def __init__(self, agent_id, model) -> None:
         super().__init__(agent_id, model)
         self.loaded = False
@@ -26,6 +29,9 @@ class AntAgent(mesa.Agent):
 
 
 class ParticleAgent(mesa.Agent):
+    """
+    This is the basic ParticleAgent class where all other particle agents are inherited from
+    """
     def __init__(self, particle_id, model) -> None:
         super().__init__(particle_id, model)
 
@@ -34,6 +40,9 @@ class ParticleAgent(mesa.Agent):
 
 
 class SimpleAntAgent(AntAgent):
+    """
+    This is the Ant Agent class for the simple clustering simulation
+    """
     def __init__(self, agent_id, model, step_size, jump_size) -> None:
         super().__init__(agent_id, model)
         self.step_size = step_size
@@ -79,11 +88,17 @@ class SimpleAntAgent(AntAgent):
 
 
 class SimpleParticle(ParticleAgent):
+    """
+    This is the simple particle agent used in the simple clustering simulation
+    """
     def __init__(self, particle_id, model) -> None:
         super().__init__(particle_id, model)
 
 
 class AdvancedAntAgent(AntAgent):
+    """
+    This is the Ant Agent class for the advanced clustering simulation
+    """
     def __init__(self, agent_id, model, jump_size) -> None:
         super().__init__(agent_id, model)
         self.loaded = False
@@ -94,7 +109,6 @@ class AdvancedAntAgent(AntAgent):
         position = self.pos
         agents_at_current_pos = self.model.grid.get_cell_list_contents(position)
         occupied = pos_occupied(agents_at_current_pos)
-        # print(agents_at_current_pos, occupied)
         if not self.loaded and occupied:
             particles = list(
                 filter(lambda a: isinstance(a, (StoneParticle, NutParticle, LeaveParticle)), agents_at_current_pos))
@@ -118,6 +132,9 @@ class AdvancedAntAgent(AntAgent):
 
 
 class StoneParticle(ParticleAgent):
+    """
+    A Particle class for the advanced clustering simulation representing stones
+    """
     def __init__(self, unique_id, model) -> None:
         super().__init__(unique_id, model)
         self.shape = 2
@@ -125,6 +142,9 @@ class StoneParticle(ParticleAgent):
 
 
 class NutParticle(ParticleAgent):
+    """
+    A Particle class for the advanced clustering simulation representing nuts
+    """
     def __init__(self, unique_id, model) -> None:
         super().__init__(unique_id, model)
         self.shape = 1
@@ -132,6 +152,9 @@ class NutParticle(ParticleAgent):
 
 
 class LeaveParticle(ParticleAgent):
+    """
+    A Particle class for the advanced clustering simulation representing leaves
+    """
     def __init__(self, unique_id, model) -> None:
         super().__init__(unique_id, model)
         self.shape = 3
@@ -147,6 +170,11 @@ def pos_occupied(agents) -> bool:
 
 
 def agent_portrayal(agent):
+    """
+    This is the agent display function for the grid visualisation used by both clustering models
+    :param agent: the agent to be portrayed
+    :return: portrayal object
+    """
     portrayal = {}
     if isinstance(agent, (SimpleAntAgent, AdvancedAntAgent)):
         portrayal["Shape"] = "circle"
