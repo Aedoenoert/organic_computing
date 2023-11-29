@@ -10,16 +10,16 @@ def main():
     grid_size = (50, 50)
     grid = CanvasGrid(agent_portrayal, grid_size[0], grid_size[1])
     visualization = ChartModule([{"Label": "Emergenz Partikel x", "Color": "Black"},
-                                 {"Label": "Entropie Partikel x", "Color": "Red"},
+                                 {"Label": "Entropie Partikel x", "Color": "Black"},
                                  {"Label": "Emergenz Partikel y", "Color": "Green"},
-                                 {"Label": "Entropie Partikel y", "Color": "Blue"},
+                                 {"Label": "Entropie Partikel y", "Color": "Green"},
                                  {"Label": "Emergenz Partikel Nachbarn", "Color": "Orange"},
-                                 {"Label": "Entropie Partikel Nachbarn", "Color": "Pink"},
-                                 {"Label": "Emergenz Ameisen x", "Color": "Black"},
+                                 {"Label": "Entropie Partikel Nachbarn", "Color": "Orange"},
+                                 {"Label": "Emergenz Ameisen x", "Color": "Red"},
                                  {"Label": "Entropie Ameisen x", "Color": "Red"},
-                                 {"Label": "Emergenz Ameisen y", "Color": "Green"},
+                                 {"Label": "Emergenz Ameisen y", "Color": "Blue"},
                                  {"Label": "Entropie Ameisen y", "Color": "Blue"},
-                                 {"Label": "Emergenz Ameisen Tragend", "Color": "Orange"},
+                                 {"Label": "Emergenz Ameisen Tragend", "Color": "Pink"},
                                  {"Label": "Entropie Ameisen Tragend", "Color": "Pink"},
                                  ])
     model_params = {

@@ -106,7 +106,7 @@ class SimpleModel(mesa.Model):
         return self.last_particle_entropy_y - self.entropy_particle_y
 
     @property
-    def entropy_particle_n(self):
+    def entropy_particle_n(self):   #entropy particle neighbors
         p_list = numpy.zeros(9, dtype=int)
         entropy = 0
         for particle in self.particle_list:
@@ -120,7 +120,7 @@ class SimpleModel(mesa.Model):
         return entropy if (self.schedule.steps > 1) else 0
 
     @property
-    def emergence_particle_n(self):
+    def emergence_particle_n(self): #emergence particle neighbors
         return self.last_particle_entropy_n - self.entropy_particle_n
 
     @property
