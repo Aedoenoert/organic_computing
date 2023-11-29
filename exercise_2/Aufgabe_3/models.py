@@ -77,7 +77,7 @@ class SimpleModel(mesa.Model):
             p_list[particle.x] += 1
         p_list = p_list[p_list != 0]
         for i in range(0, len(p_list)):
-            entropy += (p_list[i] / 50) * math.log2(p_list[i] / 50)
+            entropy += (p_list[i] / len(self.particle_list)) * math.log2(p_list[i] / len(self.particle_list))
         entropy = -entropy
         print(entropy)
         self.last_particle_entropy_x = entropy
@@ -95,7 +95,7 @@ class SimpleModel(mesa.Model):
             p_list[particle.y] += 1
         p_list = p_list[p_list != 0]
         for i in range(0, len(p_list)):
-            entropy += (p_list[i] / 50) * math.log2(p_list[i] / 50)
+            entropy += (p_list[i] / len(self.particle_list)) * math.log2(p_list[i] / len(self.particle_list))
         entropy = -entropy
         print(entropy)
         self.last_particle_entropy_y = entropy
@@ -113,7 +113,7 @@ class SimpleModel(mesa.Model):
             p_list[particle.get_num_neighboring_particles()] += 1
         p_list = p_list[p_list != 0]
         for i in range(0, len(p_list)):
-            entropy += (p_list[i] / 8) * math.log2(p_list[i] / 8)
+            entropy += (p_list[i] / len(self.particle_list)) * math.log2(p_list[i] / len(self.particle_list))
         entropy = -entropy
         print(entropy)
         self.last_particle_entropy_n = entropy
@@ -132,7 +132,7 @@ class SimpleModel(mesa.Model):
                 p_list[agents.pos[0]] += 1
         p_list = p_list[p_list != 0]
         for i in range(0, len(p_list)):
-            entropy += (p_list[i] / 50) * math.log2(p_list[i] / 50)
+            entropy += (p_list[i] / self.num_ants) * math.log2(p_list[i] / self.num_ants)
         entropy = -entropy
         print(entropy)
         self.last_ant_entropy_x = entropy
@@ -151,7 +151,7 @@ class SimpleModel(mesa.Model):
                 p_list[agents.pos[1]] += 1
         p_list = p_list[p_list != 0]
         for i in range(0, len(p_list)):
-            entropy += (p_list[i] / 50) * math.log2(p_list[i] / 50)
+            entropy += (p_list[i] / self.num_ants) * math.log2(p_list[i] / self.num_ants)
         entropy = -entropy
         print(entropy)
         self.last_ant_entropy_y = entropy
@@ -172,8 +172,9 @@ class SimpleModel(mesa.Model):
                 else:
                     p_list[1] += 1
         p_list = p_list[p_list != 0]
+        print(p_list)
         for i in range(0, len(p_list)):
-            entropy += (p_list[i] / 2) * math.log2(p_list[i] / 2)
+            entropy += (p_list[i] / self.num_ants) * math.log2(p_list[i] / self.num_ants)
         entropy = -entropy
         print(entropy)
         self.last_ant_entropy_c = entropy
