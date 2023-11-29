@@ -65,8 +65,9 @@ class SimpleModel(mesa.Model):
                 self.particle_list.append(particle)
 
     def step(self):
-        self.datacollector.collect(self)
         self.schedule.step()
+        self.datacollector.collect(self)
+
 
     @property
     def entropy_particle_x(self):
@@ -80,7 +81,7 @@ class SimpleModel(mesa.Model):
         entropy = -entropy
         print(entropy)
         self.last_particle_entropy_x = entropy
-        return int(entropy)
+        return (self.schedule.steps > 0) if entropy else 0
 
     @property
     def emergence_particle_x(self):
@@ -98,7 +99,7 @@ class SimpleModel(mesa.Model):
         entropy = -entropy
         print(entropy)
         self.last_particle_entropy_y = entropy
-        return int(entropy)
+        return (self.schedule.steps > 0) if entropy else 0
 
     @property
     def emergence_particle_y(self):
@@ -116,7 +117,7 @@ class SimpleModel(mesa.Model):
         entropy = -entropy
         print(entropy)
         self.last_particle_entropy_n = entropy
-        return int(entropy)
+        return (self.schedule.steps > 1) if entropy else 0
 
     @property
     def emergence_particle_n(self):
@@ -135,7 +136,7 @@ class SimpleModel(mesa.Model):
         entropy = -entropy
         print(entropy)
         self.last_ant_entropy_x = entropy
-        return int(entropy)
+        return (self.schedule.steps > 0) if entropy else 0
 
     @property
     def emergence_ant_x(self):
@@ -154,7 +155,7 @@ class SimpleModel(mesa.Model):
         entropy = -entropy
         print(entropy)
         self.last_ant_entropy_y = entropy
-        return int(entropy)
+        return (self.schedule.steps > 0) if entropy else 0
 
     @property
     def emergence_ant_y(self):
@@ -176,7 +177,7 @@ class SimpleModel(mesa.Model):
         entropy = -entropy
         print(entropy)
         self.last_ant_entropy_c = entropy
-        return int(entropy)
+        return (self.schedule.steps > 0) if entropy else 0
 
     @property
     def emergence_ant_c(self): #emergence ant carrying
