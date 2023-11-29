@@ -160,3 +160,4 @@ cython_debug/
 .idea/
 /exercise_1/server_user_id.txt
 
+.DS_Store
