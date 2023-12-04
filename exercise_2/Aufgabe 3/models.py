@@ -41,12 +41,12 @@ class SimpleModel(mesa.Model):
             'Emergenz Ameisen Tragend': 'emergence_ant_c',
             'Entropie Ameisen Tragend': 'entropy_ant_c'})
         self.particle_list = []
-        self.last_particle_entropy_x = 0
-        self.last_particle_entropy_y = 0
-        self.last_particle_entropy_n = 0
-        self.last_ant_entropy_x = 0
-        self.last_ant_entropy_y = 0
-        self.last_ant_entropy_c = 0
+        self.last_particle_entropy_x = None
+        self.last_particle_entropy_y = None
+        self.last_particle_entropy_n = None
+        self.last_ant_entropy_x = None
+        self.last_ant_entropy_y = None
+        self.last_ant_entropy_c = None
 
         for i in range(self.num_ants):
             agent = SimpleAntAgent(agent_id=i, model=self, step_size=ant_step_size, jump_size=ant_jump_size)
@@ -80,12 +80,16 @@ class SimpleModel(mesa.Model):
             entropy += (p_list[i] / len(self.particle_list)) * math.log2(p_list[i] / len(self.particle_list))
         entropy = -entropy
         print(entropy)
-        self.last_particle_entropy_x = entropy
+        #self.last_particle_entropy_x = entropy
         return entropy if (self.schedule.steps > 1) else 0
 
     @property
     def emergence_particle_x(self):
-        return self.last_particle_entropy_x - self.entropy_particle_x
+        if self.schedule.steps < 2:
+            return 0
+        if self.last_particle_entropy_x is None:
+            self.last_particle_entropy_x = self.entropy_particle_x
+        return self.entropy_particle_x - self.last_particle_entropy_x
 
     @property
     def entropy_particle_y(self):
@@ -98,12 +102,16 @@ class SimpleModel(mesa.Model):
             entropy += (p_list[i] / len(self.particle_list)) * math.log2(p_list[i] / len(self.particle_list))
         entropy = -entropy
         print(entropy)
-        self.last_particle_entropy_y = entropy
+        #self.last_particle_entropy_y = entropy
         return entropy if (self.schedule.steps > 1) else 0
 
     @property
     def emergence_particle_y(self):
-        return self.last_particle_entropy_y - self.entropy_particle_y
+        if self.schedule.steps < 2:
+            return 0
+        if self.last_particle_entropy_y is None:
+            self.last_particle_entropy_y = self.entropy_particle_y
+        return self.entropy_particle_y - self.last_particle_entropy_y
 
     @property
     def entropy_particle_n(self):   #entropy particle neighbors
@@ -116,12 +124,16 @@ class SimpleModel(mesa.Model):
             entropy += (p_list[i] / len(self.particle_list)) * math.log2(p_list[i] / len(self.particle_list))
         entropy = -entropy
         print(entropy)
-        self.last_particle_entropy_n = entropy
+        #self.last_particle_entropy_n = entropy
         return entropy if (self.schedule.steps > 1) else 0
 
     @property
     def emergence_particle_n(self): #emergence particle neighbors
-        return self.last_particle_entropy_n - self.entropy_particle_n
+        if self.schedule.steps < 2:
+            return 0
+        if self.last_particle_entropy_n is None:
+            self.last_particle_entropy_n = self.entropy_particle_n
+        return self.entropy_particle_n - self.last_particle_entropy_n
 
     @property
     def entropy_ant_x(self):
@@ -135,12 +147,16 @@ class SimpleModel(mesa.Model):
             entropy += (p_list[i] / self.num_ants) * math.log2(p_list[i] / self.num_ants)
         entropy = -entropy
         print(entropy)
-        self.last_ant_entropy_x = entropy
+        #self.last_ant_entropy_x = entropy
         return entropy if (self.schedule.steps > 1) else 0
 
     @property
     def emergence_ant_x(self):
-        return self.last_ant_entropy_x - self.entropy_ant_x
+        if self.schedule.steps < 2:
+            return 0
+        if self.last_ant_entropy_x is None:
+            self.last_ant_entropy_x = self.entropy_ant_x
+        return self.entropy_ant_x - self.last_ant_entropy_x
 
     @property
     def entropy_ant_y(self):
@@ -154,11 +170,15 @@ class SimpleModel(mesa.Model):
             entropy += (p_list[i] / self.num_ants) * math.log2(p_list[i] / self.num_ants)
         entropy = -entropy
         print(entropy)
-        self.last_ant_entropy_y = entropy
+        #self.last_ant_entropy_y = entropy
         return entropy if (self.schedule.steps > 1) else 0
 
     @property
     def emergence_ant_y(self):
+        if self.schedule.steps < 2:
+            return 0
+        if self.last_ant_entropy_y is None:
+            self.last_ant_entropy_y = self.entropy_ant_y
         return self.last_ant_entropy_y - self.entropy_ant_y
 
     @property
@@ -177,9 +197,13 @@ class SimpleModel(mesa.Model):
             entropy += (p_list[i] / self.num_ants) * math.log2(p_list[i] / self.num_ants)
         entropy = -entropy
         print(entropy)
-        self.last_ant_entropy_c = entropy
+        #self.last_ant_entropy_c = entropy
         return entropy if (self.schedule.steps > 1) else 0
 
     @property
     def emergence_ant_c(self): #emergence ant carrying
+        if self.schedule.steps < 2:
+            return 0
+        if self.last_ant_entropy_c is None:
+            self.last_ant_entropy_c = self.entropy_ant_c
         return self.last_ant_entropy_c - self.entropy_ant_c
