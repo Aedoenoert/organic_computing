@@ -6,7 +6,7 @@ import numpy as np
 
 
 def test():
-    iterations = 50
+    iterations = 1000
     index_array = []
     points_2x2 = []
     points_3x3 = []
