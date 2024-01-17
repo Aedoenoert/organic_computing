@@ -122,6 +122,10 @@ def train(iterations):
             q_l.steps_without_q = 0
             x_list.append(i)
             print("i:" + str(i) + " Schrittweite: " + str(q_l.schrittweite) + " Epsilon: " + str(q_l.epsilon) + " Average last 100: " + str(average_last_100) + "Length of q_table: " + str(len(q_l.q_table)))
+    for i in range (0, len(q_l.q_table)):
+        print(q_l.q_table[i].matrix)
+        print(q_l.q_table[i].q_values)
+    
     plt.plot(x_list, average_last_100_list)
     plt.title("Durchschnittliche Endpunktzahl der letzten 100 Spiele (Q-Learning)")
     plt.ylabel("Durchschnittliche Punktzahl")
@@ -132,12 +136,15 @@ def train(iterations):
     plt.ylabel("Anteil")
     plt.xlabel("Spiele")
     plt.show()
-    for k in range(0, 1000):
+    print("start play")
+    for i in range(0, 1000):
         points = q_l.play()
+        print("Game"+ str(i))
         play_points_list.append(points)
     print("Play fertig")
     for i in range(0, 1000):
         oc.reset(2)
+        print("Game"+ str(i))
         p = controller()
         points_2x2.append(p)
     print("2x2 fertig")
@@ -152,5 +159,6 @@ def train(iterations):
 
 if __name__ == '__main__':
     c.current_game = None
-    #random_games(1000)
+    #random_games(10000)
     train(10000)
+    

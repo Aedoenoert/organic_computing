@@ -18,6 +18,7 @@ class q_learning:
         for i in range(0, iterations):
             points = self.play_round()
             print(str(i) + ": " + str(points))
+        
 
     def play(self):
         def get_best_action(row):
@@ -25,20 +26,26 @@ class q_learning:
                 if row.q_values[i] == max(row.q_values):
                     return i
         oc.reset(2)
+        matrix1 = ([1,1],[1,1])
         matrix, points, end = oc.state()
+        
         while not end:
             row = self.find_new_row(matrix)
             action = get_best_action(row)
-            if action == 0:
-                oc.move("up")
-            elif action == 1:
-                oc.move("right")
-            elif action == 2:
-                oc.move("down")
-            elif action == 3:
-                oc.move("left")
+            if matrix == matrix1:
+                return points
             else:
-                print("Error")
+                if action == 0:
+                    oc.move("up")
+                elif action == 1:
+                    oc.move("right")
+                elif action == 2:
+                    oc.move("down")
+                elif action == 3:
+                    oc.move("left")
+                else:
+                    print("Error")
+            matrix1 = matrix
             matrix, points, end = oc.state()
         return points
 
@@ -50,6 +57,7 @@ class q_learning:
                     return i
         oc.reset(2)
         matrix, points, end = oc.state()
+        
         new_row = self.find_new_row(matrix)
         if new_row == None:
             new_row = q_row(matrix)
@@ -99,9 +107,6 @@ class q_learning:
             if row.matrix == matrix:
                 return row
         return None
-
-
-
 
 
 class q_row:
